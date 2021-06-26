@@ -1,0 +1,26 @@
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.amount{
+color: var(--button-bg);
+font-weight: bold;
+margin-top: 10px;
+}
+.controls input{
+    width: 30px;
+    height: 25px;
+     padding: 2px 2px;
+  background: var(--primary-bg);
+  border-radius: 8px;
+  border: none;
+text-align: center;
+color: white;
+}
+.controls span{
+    width: 30px;
+    padding: 2px 2px;
+    margin: 10px auto;
+  font-size: large;
+}
