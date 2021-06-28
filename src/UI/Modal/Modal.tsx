@@ -1,9 +1,9 @@
-import React, { ReactChild, ReactElement, ReactNode } from 'react'
+import  {  ReactNode } from 'react'
 import classes from './Modal.module.css'
-const Modal = ({children}:{children:ReactNode}) => {
+const Modal = ({children,onClose}:{children:ReactNode,onClose:()=>void}) => {
     return (
         <>
-            <div className={classes["back-drop"]}>
+            <div className={classes["back-drop"]} onClick={onClose}>
                 <div className={classes.header}>
                     <div className={classes["back-button"]}>
                         <span></span>

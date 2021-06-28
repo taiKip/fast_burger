@@ -4,7 +4,7 @@ import burger from '../../assets/burger_image.png'
 import Card from '../../UI/Card/Card'
 import { ICartItem } from '../../interfaces/ICartItem'
 
-const CartItem = () => {
+const CartItem = ({item}:{item:ICartItem}) => {
     const [quantity, setQuantity] = useState<number>(0)
 
     const handleIncrement = () => {
@@ -28,12 +28,12 @@ const CartItem = () => {
             <>
             <span><img src={burger} /></span>
             <span>
-                <h3>{'Carlifornia'}</h3>
-                <p className={classes.amount}>${7.99}</p>
+                <h3>{item.name}</h3>
+                <p className={classes.amount}>${item.price*item.quantity}</p>
             </span>
             <span className={classes.controls}>
                     <span onClick={handleDecrement} >-</span>
-                    <input placeholder="1" value={quantity} onChange={ handleInput}/>
+                    <input placeholder="1" value={item.quantity} onChange={ handleInput}/>
                     <span onClick={handleIncrement}>+</span>
                 </span>
                 </>

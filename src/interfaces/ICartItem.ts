@@ -1,4 +1,5 @@
-export interface ICartItem{
-    id: number,
-    quantity:number
+import { IBurger } from './IBurger';
+export interface ICartItem  extends IBurger{
+    quantity: number,
+   
 }
