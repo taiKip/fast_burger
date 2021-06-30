@@ -18,8 +18,9 @@ const MenuItem = ({ item }: { item: IBurger }) => {
         dispatch({ type: "add", payload: newCartItem })
         
     }
+  
     return (
-        <Card>
+        <Card >
             <>
             <span>
                 <img src={item.image} alt="delicious burger"/>

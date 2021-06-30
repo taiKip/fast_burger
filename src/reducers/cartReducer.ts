@@ -94,17 +94,15 @@ export const cartReducer = (state: IState, action: ACTIONS) => {
     case "delete":
       item_exists_index = state.items.findIndex(
         (item) => item.id === action.payload
-      );
+          );
+    updatedState={...state}
       state_items_copy = [...state.items];
-      existing_cartItem = state_items_copy[item_exists_index];
-      updatedAmount =
-        state.totalAmount -
-        existing_cartItem.price * existing_cartItem.quantity;
-      state.items.splice(item_exists_index, 1);
-      updatedState = {
-        items: state_items_copy,
-        totalAmount: updatedAmount,
-      };
+          state.items.splice(item_exists_index, 1);
+          updatedState = {
+                ...state,
+              items: [...state_items_copy]
+             
+            };
       state = updatedState;
       return state;
     default:
