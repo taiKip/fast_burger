@@ -1,20 +1,17 @@
-import React from 'react'
-import { useContext ,useEffect} from 'react'
+
+import { useContext} from 'react'
 import CartIcon from '../../assets/cart_image.png'
 import CartContext from '../../contexts/CartContext'
 import classes from './CartButton.module.css'
 const CartButton = ({ onClick }: { onClick: () => void }) => {
-    const { items } = useContext(CartContext)
+    const {state } = useContext(CartContext)
     let style = classes["cart-button"]
-    useEffect(() => {
-       
-    },[items])
-
+   
     return (
        <div className={classes.wrapper} onClick={onClick}>
             <div className={style}>
-                <p>{items.length}</p>
-                <img src={CartIcon} />
+                <p>{state.items.length}</p>
+                <img src={CartIcon} alt="burger" />
             </div>
        </div>
           

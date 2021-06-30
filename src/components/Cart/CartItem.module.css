@@ -24,3 +24,7 @@ color: white;
     margin: 10px auto;
   font-size: large;
 }
+
+.button{
+  cursor: pointer;
+}

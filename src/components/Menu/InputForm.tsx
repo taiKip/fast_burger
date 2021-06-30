@@ -5,12 +5,15 @@ import classes from './InputForm.module.css'
 const InputForm = ({ handleAddBurger: handleAddBurgerQuantity = (quantity: number) => {} }) => {
     const [quantity, setQuantity] = useState(1)
     const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setQuantity(+event.target.value)
+        setQuantity(+event.target.value)
+        
     }
+
     const handleSubmit = (event:React.FormEvent ) => {
         event.preventDefault()
         //lift quantity state up to menuitem.
-      handleAddBurgerQuantity(quantity)
+        handleAddBurgerQuantity(quantity)
+     
     }
    
     return (

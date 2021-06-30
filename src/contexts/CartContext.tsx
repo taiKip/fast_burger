@@ -1,15 +1,19 @@
-import { createContext } from "react";
-import { ICartItem } from "../interfaces/ICartItem";
+import  { createContext, Dispatch } from "react";
+import { IState } from "../interfaces/IState";
+import { ACTIONS } from "../Types/actionsType";
 
-
-export interface IDefault {
-    items: ICartItem[];
-    updateItems: (item: ICartItem) => void;
-}
-const CartContext = createContext<IDefault>({
+const innitialState = {
     items: [],
-    updateItems:(item:ICartItem)=>{}
+    totalAmount: 0
+}
+
+const CartContext = createContext<{ state: IState, dispatch: Dispatch<ACTIONS> }>({
+    state: innitialState,
+    dispatch:(actions:ACTIONS)=>{}
 })
+  
+     
+   
 
 
 export default CartContext;

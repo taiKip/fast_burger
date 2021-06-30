@@ -5,8 +5,8 @@ import ListCard from '../../UI/Card/ListCard'
 import { useContext } from 'react'
 import CartContext from '../../contexts/CartContext'
 const CartItems = () => {
-    const {items,updateItems} = useContext(CartContext)
-    const subTotal = items.reduce((total, item) => {
+    const {state,dispatch} = useContext(CartContext)
+    const subTotal = state.items.reduce((total, item) => {
         return total + (item.price*item.quantity);
     },0)
     const delivery = 2.50;
@@ -14,7 +14,7 @@ const CartItems = () => {
     return (
         <div className={classes["cart-items"]}>
             <ListCard>
-                {items.map(_item=><CartItem key={_item.id} item={_item} />)}
+                {state.items.map(_item=><CartItem key={_item.id} item={_item} />)}
             </ListCard>
             <div className={classes["checkout-controls"]}>
                 <div><span>Subtotal</span><span>${subTotal.toFixed(2)}</span></div>
