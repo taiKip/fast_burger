@@ -3,45 +3,111 @@ import { ACTIONS } from "./../Types/actionsType";
 import { IState } from "./../interfaces/IState";
 
 export const cartReducer = (state: IState, action: ACTIONS) => {
-    switch (action.type){
- case "add" :
-    const updatedAmount =
-      action.payload.price * action.payload.quantity + state.totalAmount;
+  let updateItem: ICartItem;
+  let state_items_copy: ICartItem[];
+  let updatedState: IState;
+  let updatedAmount: number;
+  let item_exists_index: number;
+  let existing_cartItem: ICartItem;
+  switch (action.type) {
+    case "add":
+      updatedAmount =
+        action.payload.price * action.payload.quantity + state.totalAmount;
 
-    //find out if item exists...increase count
-    const item_exists_index = state.items.findIndex(
-      (item) => action.payload.id === item.id
-    );
-    const existing_cartItem = state.items[item_exists_index];
-      let updateItem: ICartItem;
-      let updatedItems: ICartItem[];
-    let updatedState: IState;
-    if (existing_cartItem) {
-      updateItem = {
-        ...existing_cartItem,
-        quantity: existing_cartItem.quantity + action.payload.quantity,
+      //find out if item exists...increase count
+      item_exists_index = state.items.findIndex(
+        (item) => action.payload.id === item.id
+      );
+      existing_cartItem = state.items[item_exists_index];
+
+      if (existing_cartItem) {
+        updateItem = {
+          ...existing_cartItem,
+          quantity: existing_cartItem.quantity + action.payload.quantity,
         };
-        updatedItems = [...state.items]
-      updatedItems[item_exists_index] = updateItem;
-      updatedState = {
-        items:[...updatedItems],
-        totalAmount: updatedAmount,
-      };
+        state_items_copy = [...state.items];
+        state_items_copy[item_exists_index] = updateItem;
+        updatedState = {
+          items: [...state_items_copy],
+          totalAmount: updatedAmount,
+        };
 
         state = updatedState;
-     return state;
-    } else {
-      //if item doesnt exist in array
-      let newState = {
-        items: [action.payload, ...state.items],
+        return state;
+      } else {
+        //if item doesnt exist in array
+        updatedState = {
+          items: [action.payload, ...state.items],
+          totalAmount: updatedAmount,
+        };
+        console.log("new item added");
+        state = updatedState;
+      }
+      return state;
+
+    case "increment":
+      item_exists_index = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
+      state_items_copy = [...state.items];
+      existing_cartItem = state_items_copy[item_exists_index];
+      updatedAmount = state.totalAmount + existing_cartItem.price;
+      updateItem = {
+        ...existing_cartItem,
+        quantity: existing_cartItem.quantity + 1,
+      };
+      state_items_copy[item_exists_index] = updateItem;
+      updatedState = {
+        items: [...state_items_copy],
         totalAmount: updatedAmount,
       };
-      console.log("new item added");
-      state = newState;
-    }
-    return state;
-        default:
-            return state;
-    
-}
-}
+      state = updatedState;
+      return state;
+    case "decrement":
+      item_exists_index = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
+      state_items_copy = [...state.items];
+      existing_cartItem = state_items_copy[item_exists_index];
+      if (existing_cartItem.quantity > 1) {
+        updatedAmount = state.totalAmount - existing_cartItem.price;
+        updateItem = {
+          ...existing_cartItem,
+          quantity: existing_cartItem.quantity - 1,
+        };
+        state_items_copy[item_exists_index] = updateItem;
+        updatedState = {
+          items: [...state_items_copy],
+          totalAmount: updatedAmount,
+        };
+        state = updatedState;
+      } else {
+        state_items_copy.splice(item_exists_index, 1);
+        updatedAmount = state.totalAmount - existing_cartItem.price;
+        updatedState = {
+          items: [...state_items_copy],
+          totalAmount: updatedAmount,
+        };
+        state = updatedState;
+      }
+      return state;
+    case "delete":
+      item_exists_index = state.items.findIndex(
+        (item) => item.id === action.payload
+      );
+      state_items_copy = [...state.items];
+      existing_cartItem = state_items_copy[item_exists_index];
+      updatedAmount =
+        state.totalAmount -
+        existing_cartItem.price * existing_cartItem.quantity;
+      state.items.splice(item_exists_index, 1);
+      updatedState = {
+        items: state_items_copy,
+        totalAmount: updatedAmount,
+      };
+      state = updatedState;
+      return state;
+    default:
+      return state;
+  }
+};

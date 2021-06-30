@@ -1,16 +1,17 @@
-import React from 'react'
+
 import CartItem from './CartItem'
 import classes from './CartItems.module.css'
 import ListCard from '../../UI/Card/ListCard'
 import { useContext } from 'react'
 import CartContext from '../../contexts/CartContext'
 const CartItems = () => {
-    const {state,dispatch} = useContext(CartContext)
+    const {state} = useContext(CartContext)
     const subTotal = state.items.reduce((total, item) => {
         return total + (item.price*item.quantity);
     },0)
-    const delivery = 2.50;
-    const total = subTotal+delivery;
+    const delivery = subTotal*0.1;
+    const total = subTotal + delivery;
+    
     return (
         <div className={classes["cart-items"]}>
             <ListCard>

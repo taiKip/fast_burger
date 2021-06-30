@@ -12,16 +12,16 @@ const CartItem = ({ item }: { item: ICartItem }) => {
         dispatch({type:"increment",payload:item.id})
     }
     const handleDecrement = () => {
-
+dispatch({type:"decrement",payload:item.id})
     }
     const handleInput: React.ChangeEventHandler<HTMLInputElement> = (event) => {
 
     }
 
     return (
-        <Card>
+        <Card >
             <>
-                <span><img src={burger}  alt ="a delicious burger"/></span>
+                <span ><img src={burger}  alt ="a delicious burger"/></span>
                 <span>
                     <h3>{item.name}</h3>
                     <p className={classes.amount}>€ {item.price * item.quantity}</p>
