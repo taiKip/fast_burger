@@ -3,7 +3,8 @@ import { ACTIONS } from "./../Types/actionsType";
 import { IState } from "./../interfaces/IState";
 
 export const cartReducer = (state: IState, action: ACTIONS) => {
-  if (action.type === "add") {
+    switch (action.type){
+ case "add" :
     const updatedAmount =
       action.payload.price * action.payload.quantity + state.totalAmount;
 
@@ -23,7 +24,7 @@ export const cartReducer = (state: IState, action: ACTIONS) => {
         updatedItems = [...state.items]
       updatedItems[item_exists_index] = updateItem;
       updatedState = {
-        items:[...state.items],
+        items:[...updatedItems],
         totalAmount: updatedAmount,
       };
 
@@ -39,27 +40,8 @@ export const cartReducer = (state: IState, action: ACTIONS) => {
       state = newState;
     }
     return state;
-  } else if (action.type === "increment") {
-    const item_index = state.items.findIndex(
-      (item) => item.id === action.payload
-    );
-    const existing_cartItem = state.items[item_index];
-    let updateItem: ICartItem;
-    let updateState: IState;
-    let updateAmount = state.totalAmount + existing_cartItem.price;
-    updateItem = {
-      ...existing_cartItem,
-      quantity: existing_cartItem.quantity + 1,
-    };
+        default:
+            return state;
     
-    updateState = {
-      ...state,
-      totalAmount: updateAmount,
-    };
-    state = updateState;
-
-    return state;
-  } else {
-    return state;
-  }
-};
+}
+}
