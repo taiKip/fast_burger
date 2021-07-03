@@ -6,6 +6,7 @@ import Card from '../../UI/Card/Card'
 import { useContext } from 'react'
 import CartContext from '../../contexts/CartContext'
 import { ICartItem } from '../../interfaces/ICartItem'
+
 const MenuItem = ({ item }: { item: IBurger }) => {
    const {dispatch} = useContext(CartContext)
     const handleAddBurger = (quantity:number) => {
@@ -23,15 +24,18 @@ const MenuItem = ({ item }: { item: IBurger }) => {
         <Card >
             <>
             <span>
-                <img src={item.image} alt="delicious burger"/>
+                    <img src={item.image} alt="delicious burger"/>
             </span>
             <span className={classes.description}>
-                <h3>{item.name} </h3>
+                    <h3>{item.name} </h3>
+                    <p className={classes.details}>{item.description}</p>
             </span>
             <span>
                     <InputForm handleAddBurger={handleAddBurger}/>
                 </span>
-                </>
+
+            </>
+         
         </Card>
     )
 }

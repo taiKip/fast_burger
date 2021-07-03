@@ -4,3 +4,10 @@
   flex-direction: column;
 
 }
+
+@media screen and (min-width: 480px) {
+  .App {
+    width:60%;
+    margin: 0 auto;
+  }
+}

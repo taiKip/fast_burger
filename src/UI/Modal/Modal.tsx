@@ -1,6 +1,7 @@
 import  {  ReactNode } from 'react'
 import classes from './Modal.module.css'
-const Modal = ({children,onClose}:{children:ReactNode,onClose:()=>void}) => {
+const Modal = ({ children, onClose, name, show }: { children: ReactNode, onClose: () => void, name: string, show: boolean }) => {
+    let modalStyles = classes.modal
     return (
         <>
             <div className={classes["back-drop"]} onClick={onClose}>
@@ -11,12 +12,12 @@ const Modal = ({children,onClose}:{children:ReactNode,onClose:()=>void}) => {
                         <span></span>
                     </div>
                     <div>
-                        <h1>Cart</h1>
+                        <h1>{name}</h1>
                     </div>          
                 </div>
                
             </div>
-            <div className={classes.modal}>
+            <div className={modalStyles}>
                 {children}
               
             </div>

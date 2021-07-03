@@ -7,9 +7,29 @@
     
 }
 .description{
-    width: 30%;
+    width: 40%;
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 10px;
+     
 }
 .menu-item span{
    display: grid;
    place-items: center;
+}
+
+.details {
+
+  display:block;
+  font-style: italic;
+}
+
+@media screen and (max-width:1300px) {
+    .details{
+        display: none ;
+    
+      
+    }
 }

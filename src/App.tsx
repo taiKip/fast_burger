@@ -2,7 +2,6 @@
 import './App.css';
 import Header from './components/Header/Header';
 import Menu from './components/Menu/Menu';
-import CartButton from './components/Cart/CartButton';
 import Modal from './UI/Modal/Modal';
 import CartItems from './components/Cart/CartItems';
 import { useState } from 'react';
@@ -16,10 +15,10 @@ function App() {
   return (
     <CartContextProvider>
       <div className="App">
-        {showModal && <Modal onClose={toggleModal}><CartItems /></Modal>}
+        {showModal && <Modal onClose={toggleModal} name="Cart" show={showModal}><CartItems/></Modal>}
         <Header />
-        <Menu />
-        <CartButton onClick={toggleModal}/>
+        <Menu toggle ={toggleModal} />
+        
       </div>
     </CartContextProvider>
     

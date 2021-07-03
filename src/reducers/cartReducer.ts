@@ -40,7 +40,7 @@ export const cartReducer = (state: IState, action: ACTIONS) => {
           items: [action.payload, ...state.items],
           totalAmount: updatedAmount,
         };
-        console.log("new item added");
+        
         state = updatedState;
       }
       return state;

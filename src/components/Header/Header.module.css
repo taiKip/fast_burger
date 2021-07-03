@@ -8,3 +8,9 @@
     object-fit: cover;
     clip-path: polygon(100% 0, 100% 83%, 27% 100%, 0 100%, 0 51%, 0% 0%);
 }
+
+@media screen and (min-width: 480px) {
+  .header {
+  height: 300px;
+  }
+}

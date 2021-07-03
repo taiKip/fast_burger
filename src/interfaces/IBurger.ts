@@ -1,7 +1,7 @@
 export interface IBurger{
-    id: number;
+    id: string;
     name: string;
     price: number;
     description: string;
-    image: any;
+    image: string;
 }

@@ -1,19 +1,49 @@
-import React from 'react'
-import burger from '../../assets/burger_image.png'
 import { IBurger } from '../../interfaces/IBurger'
-
 import MenuItem from './MenuItem'
 import ListCard from '../../UI/Card/ListCard'
-const Burger:IBurger[] = [
-    { id: 1, name: "Beef Burger", description: "Beef patty,Onions,Tomatoes,Pickles,Lettuce,Ketchup,Mayo,Mustard", price: 7.99, image: burger },
-    { id: 2, name: "Cheese Burger", description: "Beef patty,Chedder Cheese,Grilled Onions,Tomatoes,Pickles,Lettuce,Ketchup,Mayo,Mustard", price: 8.99, image: burger },
-    { id: 3, name: "Beef Bacon", description: "Beef patty,Chedder Cheese,Beef Bacon,Grilled Onions,Tomatoes,Pickles,Lettuce,Ketchup,Mayo,Mustard", price: 9.99, image: burger },
-    { id: 4, name: "Hawaian Burger", description: "Beef patty,Grilled Pineapple,Mozza cheese,Onions,Lettuce,Mayo,BBQ sauce", price: 6.99, image: burger }
-]
-const Menu = () => {
+import { useState, useEffect } from 'react'
+import ProgressBar from '../../UI/progressBar/ProgressBar'
+import CartButton from '../Cart/CartButton'
+const Menu = ({toggle}:{toggle:()=>void}) => {
+    const [meals, setMeals] = useState<IBurger[]>([])
+    const [loading, setLoading] = useState(true)
+    const[error,setError] = useState(null)
+   
+
+    useEffect(() => {
+        fetch("https://happy-meals-bbca2-default-rtdb.firebaseio.com/meals.json").then(res => {
+            setLoading(true)
+            if (!res.ok) {
+                setLoading(false)
+                throw Error("Oops something went wrong...")
+                
+          }
+            return res.json()
+        }).then(data => {
+            setLoading(false)
+            const meals: IBurger[] = []
+            for (const key in data) {
+                meals.push({
+                    id: key,
+                    name: data[key].name,
+                    description: data[key].description,
+                    image:data[key].image ,
+                    price: data[key].price
+                })
+            }
+            setMeals(meals)
+        }).catch(error =>setError(error.message))
+    }, [])
+    const handleClick = () => {
+      toggle()
+  }
     return (
         <ListCard>
-            {Burger.map(burger => <MenuItem key={burger.id} item={burger }/>)}
+            {loading&&<ProgressBar/>}
+            {error && <p>{error}</p>}
+           
+            {meals && meals.map(burger => <MenuItem key={burger.id} item={burger} />)}
+            <CartButton onClick={handleClick} />
         </ListCard>
     )
 }
