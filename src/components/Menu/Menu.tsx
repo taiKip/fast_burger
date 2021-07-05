@@ -4,6 +4,7 @@ import ListCard from '../../UI/Card/ListCard'
 import { useState, useEffect } from 'react'
 import ProgressBar from '../../UI/progressBar/ProgressBar'
 import CartButton from '../Cart/CartButton'
+import SkeletonItem from '../Skeletons/SkeletonItem'
 const Menu = ({toggle}:{toggle:()=>void}) => {
     const [meals, setMeals] = useState<IBurger[]>([])
     const [loading, setLoading] = useState(true)
@@ -11,6 +12,7 @@ const Menu = ({toggle}:{toggle:()=>void}) => {
    
 
     useEffect(() => {
+      
         fetch("https://happy-meals-bbca2-default-rtdb.firebaseio.com/meals.json").then(res => {
             setLoading(true)
             if (!res.ok) {
@@ -32,14 +34,19 @@ const Menu = ({toggle}:{toggle:()=>void}) => {
                 })
             }
             setMeals(meals)
-        }).catch(error =>setError(error.message))
+        }).catch(error => setError(error.message))
+      
     }, [])
     const handleClick = () => {
       toggle()
   }
     return (
         <ListCard>
-            {loading&&<ProgressBar/>}
+            {loading &&
+                <>
+                <ProgressBar />
+                {[1, 2, 3, 4].map(item => <SkeletonItem key={item}/>)}
+                </>}
             {error && <p>{error}</p>}
            
             {meals && meals.map(burger => <MenuItem key={burger.id} item={burger} />)}

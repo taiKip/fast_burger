@@ -1,16 +1,39 @@
 .header{
-    height: 150px;
+    height: 160px;
+    width: 100%;
     overflow: hidden;
+  padding: 10px;
+   
+    
 }
-.header img{
+.header img {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    clip-path: polygon(100% 0, 100% 83%, 27% 100%, 0 100%, 0 51%, 0% 0%);
+   
+    animation: fadeIn 2.5s;
 }
+
 
 @media screen and (min-width: 480px) {
   .header {
   height: 300px;
   }
+}
+
+.hide{
+  display: none;
+}
+
+
+@keyframes fadeIn {
+
+  0% {
+    opacity: 0;
+  }
+ 
+  100%{
+    opacity: 1;
+  }
+  
 }

@@ -97,12 +97,13 @@ export const cartReducer = (state: IState, action: ACTIONS) => {
           );
     updatedState={...state}
       state_items_copy = [...state.items];
-          state.items.splice(item_exists_index, 1);
+          state_items_copy.splice(item_exists_index, 1);
           updatedState = {
                 ...state,
               items: [...state_items_copy]
              
-            };
+      };
+    
       state = updatedState;
       return state;
     default:

@@ -1,0 +1,10 @@
+.skeleton-wrapper{
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+}
+@media screen and (min-width: 480px) {
+  .skeleton-wrapper {
+  height: 300px;
+  }
+}

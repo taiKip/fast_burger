@@ -3,7 +3,7 @@
   display: grid;
   place-items: center;
  
-  margin-top: 20px;
+  cursor: pointer;
 
 }
 .cart-button{
@@ -43,13 +43,12 @@ cursor: pointer;
     transform: scale(1.2);
 }
 .add {
-  animation: animate 0.2s ease-in-out;
+  animation: animate .3s;
 }
 @keyframes animate {
   0%{transform: scale(0.9);}
-  25%{transform: scale(1.0);}
-  50%{transform: scale(1.1);}
-  75%{transform:scale(1.05);}
+  
+  50%{transform: scale(1.4);}
    100%{transform:scale(1.0);}
 }
 

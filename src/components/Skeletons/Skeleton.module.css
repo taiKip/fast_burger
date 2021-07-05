@@ -1,0 +1,7 @@
+.skeleton-wrapper{
+    height: 100px;
+    width: 100%;
+    background: var(--secondary-bg);
+    border-radius: 10px;
+    position: relative;
+}

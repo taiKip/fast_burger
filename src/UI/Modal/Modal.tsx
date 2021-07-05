@@ -1,6 +1,6 @@
 import  {  ReactNode } from 'react'
 import classes from './Modal.module.css'
-const Modal = ({ children, onClose, name, show }: { children: ReactNode, onClose: () => void, name: string, show: boolean }) => {
+const Modal = ({ children, onClose, name}: { children: ReactNode, onClose: () => void, name: string}) => {
     let modalStyles = classes.modal
     return (
         <>

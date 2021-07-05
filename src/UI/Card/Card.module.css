@@ -4,5 +4,24 @@
    padding: 10px ;
   border-radius: 10px;
     background: var(--secondary-bg);
-    
+    cursor: pointer;
+    animation: fadeIn 2.5s;
+    transition: all 2s;
+}
+ .delete{
+transform: translateY(10px);
+}
+@media  screen and (max-width :330px) {
+  .item{
+    padding-bottom: 5px;
+  }
+}
+
+@keyframes fadeIn {
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+@keyframes deleteItem {
+  
 }

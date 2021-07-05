@@ -15,7 +15,7 @@ function App() {
   return (
     <CartContextProvider>
       <div className="App">
-        {showModal && <Modal onClose={toggleModal} name="Cart" show={showModal}><CartItems/></Modal>}
+        {showModal && <Modal onClose={toggleModal} name="Cart"><CartItems/></Modal>}
         <Header />
         <Menu toggle ={toggleModal} />
         

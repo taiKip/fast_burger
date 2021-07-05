@@ -25,12 +25,15 @@ const CartItem = ({ item }: { item: ICartItem }) => {
         dispatch({ type: 'add', payload: item })
        
     }
+    
     const handleDelete = (event:React.MouseEvent<HTMLElement>) => {
-       dispatch({type:"delete",payload:item.id})
+        dispatch({ type: "delete", payload: item.id })
+   
+        console.log("clicked")
     }
 
     return (
-        <Card >
+        <Card  >
            <>
                 <span onDoubleClick={handleDelete}><img src={burger}  alt ="a delicious burger"/></span>
             <span onDoubleClick={handleDelete}>

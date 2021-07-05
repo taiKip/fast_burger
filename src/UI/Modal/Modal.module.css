@@ -7,7 +7,7 @@
   z-index: 50;
   background-color: white;
   color: black;
-  
+ 
 }
 .header {
     height: 150px;
@@ -15,7 +15,7 @@
     display: flex;
     justify-content: space-around;
 align-items: center;
-
+   cursor:pointer;
     padding: 0;
 }
 
@@ -31,6 +31,7 @@ align-items: center;
     border-right: 3px solid var(--button-bg);
     transform: rotate(45deg);
     margin: -10px;
+     cursor:pointer;
     animation: animate 2s infinite;
 }
 .back-button:nth-child(2){

@@ -10,6 +10,8 @@ const CartItems = () => {
   let cartHeader = "Selected Items,double click on item name to delete";
   if (state.items.length === 0) {
     cartHeader = `you currently have no items in your cart :)`;
+  } else if(checkout===true){
+    cartHeader="Please enter your details"
   }
   const subTotal = state.items.reduce((total, item) => {
     return total + item.price * item.quantity;
@@ -28,7 +30,7 @@ const CartItems = () => {
         {checkout && (
           <>
           
-            <CheckoutForm />
+            <CheckoutForm toggle={handleCheckout}/>
             total :€ {total.toFixed(2)}
           </>
         )}
