@@ -1,14 +1,20 @@
 import { FormEvent, useRef, useState } from "react";
+import { ICustomer } from "../../../interfaces/ICustomer";
+import { ISubmit } from "../../../interfaces/ISubmit";
+import ProgressBar from "../../../UI/progressBar/ProgressBar";
 import classes from "./CheckoutForm.module.css";
+import OrderConfirmed from "./OrderConfirmed";
 const phoneRegex = /^(\+\d{0})?(?:[0-9] ?){6,14}[0-9]$/;
-const CheckoutForm = ({ toggle }: { toggle: () => void }) => {
-  const [formIsInValid, setFormIsValid] = useState(true);
+const CheckoutForm = ({ toggle,handleSubmit,total,submitStatus }: { toggle: () => void,handleSubmit:(user:ICustomer)=>void,total:number ,submitStatus:ISubmit}) => {
+    const [formIsInValid, setFormIsValid] = useState(true);
+    
   const nameRef = useRef<HTMLInputElement>(null);
   const streetRef = useRef<HTMLInputElement>(null);
   const aptRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
+   
   const handleCheckout = (event: FormEvent) => {
     event.preventDefault();
     const name = nameRef.current?.value;
@@ -36,52 +42,61 @@ const CheckoutForm = ({ toggle }: { toggle: () => void }) => {
       return;
     }
 
-    const customer = {
+    const customer:ICustomer = {
       name: name,
-      streetName: street,
-      apartment: apartment,
-      phone: phonNumber,
+      streetAddress: street,
+      apartmentNumber: apartment,
+      phoneNumber: phonNumber,
     };
-    console.log(customer);
-    formRef.current?.reset();
+      handleSubmit(customer)
+      if (submitStatus.submitError) {
+          return;
+      }
+      if (!submitStatus.submitError) {
+          formRef.current?.reset();
+      }
+    
   };
   return (
     <>
-      {!formIsInValid&&<p style={{color:'salmon'}}>Please Re-check your details</p>}
-      <form className={classes.form} onSubmit={handleCheckout} ref={formRef}>
-        <div>
-          <label htmlFor="name">Your Name</label>
-          <input type="text" id="name" required ref={nameRef} />
-        </div>
-        <div>
-          <label htmlFor="name">Street Address</label>
-          <input type="text" id="name" required ref={streetRef} />
-        </div>
-        <div>
-          <label htmlFor="name">Appartment Number</label>
-          <input
-            type="text"
-            id="name"
-            placeholder="B 23"
-            required
-            ref={aptRef}
-          />
-        </div>
-        <div>
-          <label htmlFor="phone">Phone Number</label>
-          <input
-            type="tel"
-            id="phone"
-            placeholder="+3585824224"
-            required
-            ref={phoneRef}
-          />
-        </div>
-        <div className={classes.controls}>
-          <button onClick={toggle}>cancel</button>
-          <button>confirm</button>
-        </div>
-      </form>
+          {(!formIsInValid) && <p style={{ color: 'salmon' }}>Please Re-check your details</p>}
+          {submitStatus.isSubmiting && <ProgressBar />}
+          {submitStatus.submitError&&<p>Something went wrong :(</p>}
+          {submitStatus.submitted ? <OrderConfirmed />:<form className={classes.form} onSubmit={handleCheckout} ref={formRef}>
+              <div>
+                  <label htmlFor="name">Your Name</label>
+                  <input type="text" id="name" required ref={nameRef} />
+              </div>
+              <div>
+                  <label htmlFor="name">Street Address</label>
+                  <input type="text" id="name" required ref={streetRef} />
+              </div>
+              <div>
+                  <label htmlFor="name">Appartment Number</label>
+                  <input
+                      type="text"
+                      id="name"
+                      placeholder="B 23"
+                      required
+                      ref={aptRef}
+                  />
+              </div>
+              <div>
+                  <label htmlFor="phone">Phone Number</label>
+                  <input
+                      type="tel"
+                      id="phone"
+                      placeholder="+3585824224"
+                      required
+                      ref={phoneRef}
+                  />
+              </div>
+              <div className={classes.controls}>
+                  <button onClick={toggle}>cancel</button>
+                  <button>confirm</button>
+              </div>
+              <p>total : {total.toFixed(2)}</p>
+          </form>}
     </>
   );
 };

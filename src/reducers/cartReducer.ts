@@ -1,6 +1,7 @@
 import { ICartItem } from "./../interfaces/ICartItem";
 import { ACTIONS } from "./../Types/actionsType";
 import { IState } from "./../interfaces/IState";
+import { stat } from "fs";
 
 export const cartReducer = (state: IState, action: ACTIONS) => {
   let updateItem: ICartItem;
@@ -106,6 +107,16 @@ export const cartReducer = (state: IState, action: ACTIONS) => {
     
       state = updatedState;
       return state;
+    case "reset":
+      updatedState = { ...state }
+      
+      updatedState = {
+        ...state,
+        items: [],
+        totalAmount:0
+      }
+      state = updatedState;
+      return state
     default:
       return state;
   }

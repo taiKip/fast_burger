@@ -1,0 +1,8 @@
+.success{
+    border-radius: 10px;
+    border:none;
+    padding: 20px;
+    color:greenyellow;
+   font-size: 1.2em;
+   background-color: rgba(128, 0, 128, 0.411);
+}
