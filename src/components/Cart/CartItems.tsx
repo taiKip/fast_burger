@@ -7,11 +7,11 @@ import CheckoutForm from "./CheckoutForm/CheckoutForm";
 const CartItems = () => {
   const { state } = useContext(CartContext);
   const [checkout, setCheckout] = useState(false);
-  let cartHeader = "Selected Items,double click on item name to delete";
+  let cartHeader = <p>Selected Items,double click on item name to delete</p>
   if (state.items.length === 0) {
-    cartHeader = `you currently have no items in your cart :)`;
+    cartHeader = <p>you currently have no items in your cart </p>
   } else if(checkout===true){
-    cartHeader="Please enter your details"
+    cartHeader = <p>Please enter your details</p> 
   }
   const subTotal = state.items.reduce((total, item) => {
     return total + item.price * item.quantity;
@@ -26,7 +26,7 @@ const CartItems = () => {
   return (
     <div className={classes["cart-items"]}>
       <ListCard>
-        {<span className={classes["cart-header-text"]}>{cartHeader}</span>}
+        {<span className={classes["cart-header-text"]}>{cartHeader} </span>}
         {checkout && (
           <>
           

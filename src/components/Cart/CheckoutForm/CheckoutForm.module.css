@@ -16,7 +16,9 @@
     border: none;
   
 }
-
+.invalid{
+  border: 1px solid salmon;
+}
 .controls button{
    margin: 10px;
 }

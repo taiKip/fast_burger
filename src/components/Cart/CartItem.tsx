@@ -29,7 +29,7 @@ const CartItem = ({ item }: { item: ICartItem }) => {
     const handleDelete = (event:React.MouseEvent<HTMLElement>) => {
         dispatch({ type: "delete", payload: item.id })
    
-        console.log("clicked")
+        
     }
 
     return (
