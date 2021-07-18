@@ -5,36 +5,43 @@ import { useState, useEffect } from 'react'
 import ProgressBar from '../../UI/progressBar/ProgressBar'
 import CartButton from '../Cart/CartButton'
 import SkeletonItem from '../Skeletons/SkeletonItem'
+import firebase from '../../data/firebase'
 const Menu = ({toggle}:{toggle:()=>void}) => {
     const [meals, setMeals] = useState<IBurger[]>([])
     const [loading, setLoading] = useState(true)
-    const[error,setError] = useState(null)
-   
+    const [error, setError] = useState<string|null>(null)
+    
+    const db = firebase.firestore() //initialize database
+  
 
     useEffect(() => {
       
-        fetch("https://happy-meals-bbca2-default-rtdb.firebaseio.com/meals.json").then(res => {
-            setLoading(true)
-            if (!res.ok) {
-                setLoading(false)
-                throw Error("Oops something went wrong...")
-                
-          }
-            return res.json()
-        }).then(data => {
-            setLoading(false)
-            const meals: IBurger[] = []
-            for (const key in data) {
-                meals.push({
-                    id: key,
-                    name: data[key].name,
-                    description: data[key].description,
-                    image:data[key].image ,
-                    price: data[key].price
-                })
+        setLoading(true);
+        db.collection("meals").onSnapshot(querySnapshot => {
+            const meals: IBurger[] = [];
+            if (querySnapshot.empty) {
+                return
             }
+            querySnapshot.forEach(doc => {
+
+                if (doc.data()) {
+                    meals.push({
+                        id: doc.id,
+                        name: doc.data().name,
+                        description: doc.data().description,
+                        image: doc.data().image,
+                        price: doc.data().price
+                    })
+                }
+            })
             setMeals(meals)
-        }).catch(error => setError(error.message))
+            setLoading(false)
+            setError(null)
+        }, error => {
+            setError(error.message)
+        })
+
+
       
     }, [])
     const handleClick = () => {

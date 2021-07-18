@@ -6,12 +6,14 @@ import CartContext from "../../contexts/CartContext";
 import CheckoutForm from "./CheckoutForm/CheckoutForm";
 import { ICustomer } from "../../interfaces/ICustomer";
 import { ISubmit } from "../../interfaces/ISubmit";
+import firebase from '../../data/firebase'
 const CartItems = () => {
   const { state,dispatch } = useContext(CartContext);
   const [checkout, setCheckout] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(true);
   const [submitError, setSubmitError] = useState(false);
+  const db = firebase.firestore()
   let cartHeader = <p>Selected Items,double click on item name to delete</p>;
   if (state.items.length === 0) {
     cartHeader = <p>you currently have no items in your cart </p>;
@@ -29,25 +31,19 @@ const CartItems = () => {
   };
   const handlesubmitOrder = (userDetails: ICustomer) => {
     setIsSubmitting(true);
-    fetch("https://happy-meals-bbca2-default-rtdb.firebaseio.com/orders.json", {
-      method: "POST",
-      body: JSON.stringify({
-        user: userDetails,
-        orderedItems: state.items,
-      }),
+    db.collection('orders').add({
+      user: userDetails,
+      orderedItems: state.items,
+      date: new Date(),
+      status: "new"
+    }).then(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+      dispatch({ type: "reset" })
+    }).catch((error) => {
+      setSubmitError(true)
     })
-      .then((res) => {
-        if (!res.ok) {
-          setIsSubmitting(false);
-          throw Error("something went wrong");
-        } else {
-          setIsSubmitting(false);
-          setSubmitted(true);
-          dispatch({type:"reset"})
-        }
-      })
-      .catch((error) => setSubmitError(true));
-  };
+  }
   const status: ISubmit = {
     isSubmiting: isSubmitting,
     submitted: submitted,

@@ -10,10 +10,12 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
-   
+   transition: all 0.4s;
     animation: fadeIn 2.5s;
 }
-
+.header img:hover{
+  transform: scale(1.01);
+}
 
 @media screen and (min-width: 480px) {
   .header {

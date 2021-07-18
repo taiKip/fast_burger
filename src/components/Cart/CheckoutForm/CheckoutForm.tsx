@@ -68,14 +68,14 @@ const CheckoutForm = ({ toggle,handleSubmit,total,submitStatus }: { toggle: () =
                   <input type="text" id="name" required ref={nameRef} />
               </div>
               <div>
-                  <label htmlFor="name">Street Address</label>
-                  <input type="text" id="name" required ref={streetRef} />
+                  <label htmlFor="address">Street Address</label>
+                  <input type="text" id="address" required ref={streetRef} />
               </div>
               <div>
-                  <label htmlFor="name">Appartment Number</label>
+                  <label htmlFor="appartment">Appartment Number</label>
                   <input
                       type="text"
-                      id="name"
+                      id="appartment"
                       placeholder="B 23"
                       required
                       ref={aptRef}
